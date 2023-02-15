@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import cartoon from "./assets/orange.png";
 function App(): JSX.Element {
     return (
@@ -8,8 +8,8 @@ function App(): JSX.Element {
             <header className="App-header">
                 UD CISC275 with React Hooks and TypeScript
             </header>
-            <h2>My name is Joseph Hooper</h2>
-            <h3>Hello World</h3>
+
+            <h1 style={{ backgroundColor: "red" }}>My name is Joseph Hooper</h1>
             <p>
                 Edit <code>src/App.tsx</code> and save. This page will
                 automatically reload.
@@ -26,6 +26,30 @@ function App(): JSX.Element {
                         />
                     </Col>
                 </Row>
+                <Row>
+                    <Col>
+                        <div
+                            style={{
+                                width: "20%",
+                                height: "auto",
+                                backgroundColor: "red"
+                            }}
+                        >
+                            <br />
+                        </div>
+                    </Col>
+                    <Col>
+                        <div
+                            style={{
+                                width: "20%",
+                                height: "auto",
+                                backgroundColor: "red"
+                            }}
+                        >
+                            <br />
+                        </div>
+                    </Col>
+                </Row>
             </Container>
             <ol>
                 My favorite foods are:
@@ -33,6 +57,9 @@ function App(): JSX.Element {
                 <li>Sirloin Steaks</li>
                 <li>Chocolate</li>
             </ol>
+            <Button onClick={() => console.log("Hello World!")}>
+                Log Hello World
+            </Button>
         </div>
     );
 }
