@@ -16,7 +16,7 @@ function App(): JSX.Element {
             </p>
             <Container>
                 <Row>
-                    <Col>Behold a random image I found on my computer:</Col>
+                    <Col>Image of an orange with sunglasses:</Col>
                     <Col>
                         <img
                             src={cartoon}
