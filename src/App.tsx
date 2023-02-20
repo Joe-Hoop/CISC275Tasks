@@ -8,7 +8,6 @@ function App(): JSX.Element {
             <header className="App-header">
                 UD CISC275 with React Hooks and TypeScript
             </header>
-
             <h1 style={{ backgroundColor: "red" }}>My name is Joseph Hooper</h1>
             <p>
                 Edit <code>src/App.tsx</code> and save. This page will
