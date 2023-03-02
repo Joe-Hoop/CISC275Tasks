@@ -108,7 +108,28 @@ id,name,options,points,published
  * Check the unit tests for more examples!
  */
 export function toCSV(questions: Question[]): string {
-    return "";
+    let display = "id,name,options,points,published";
+    const makeString = (question: Question): string => {
+        return (
+            "\n" +
+            question.id +
+            "," +
+            question.name +
+            "," +
+            question.options.length +
+            "," +
+            question.points +
+            "," +
+            question.published
+        );
+    };
+    const toAString = questions.reduce(
+        (all: string, question: Question): string =>
+            (all += makeString(question)),
+        ""
+    );
+    display += toAString;
+    return display;
 }
 
 /**
@@ -117,7 +138,15 @@ export function toCSV(questions: Question[]): string {
  * making the `text` an empty string, and using false for both `submitted` and `correct`.
  */
 export function makeAnswers(questions: Question[]): Answer[] {
-    return [];
+    const makeAnswer = (question: Question): Answer => {
+        return {
+            questionId: question.id,
+            text: "",
+            submitted: false,
+            correct: false
+        };
+    };
+    return questions.map((question: Question): Answer => makeAnswer(question));
 }
 
 /***
@@ -125,7 +154,9 @@ export function makeAnswers(questions: Question[]): Answer[] {
  * each question is now published, regardless of its previous published status.
  */
 export function publishAll(questions: Question[]): Question[] {
-    return [];
+    return questions.map(
+        (question: Question): Question => ({ ...question, published: true })
+    );
 }
 
 /***
