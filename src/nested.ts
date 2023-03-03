@@ -1,5 +1,6 @@
 import { Answer } from "./interfaces/answer";
 import { Question, QuestionType } from "./interfaces/question";
+import { makeBlankQuestion } from "./objects";
 
 /**
  * Consumes an array of questions and returns a new array with only the questions
@@ -164,6 +165,20 @@ export function publishAll(questions: Question[]): Question[] {
  * are the same type. They can be any type, as long as they are all the SAME type.
  */
 export function sameType(questions: Question[]): boolean {
+    if (
+        questions.every(
+            (question: Question) => question.type === "multiple_choice_question"
+        )
+    ) {
+        return true;
+    }
+    if (
+        questions.every(
+            (question: Question) => question.type === "short_answer_question"
+        )
+    ) {
+        return true;
+    }
     return false;
 }
 
@@ -178,7 +193,15 @@ export function addNewQuestion(
     name: string,
     type: QuestionType
 ): Question[] {
-    return [];
+    const blankQ = makeBlankQuestion(id, name, type);
+    const copyQuestions = questions.map(
+        (question: Question): Question => ({
+            ...question,
+            options: [...question.options]
+        })
+    );
+    copyQuestions.push(blankQ);
+    return copyQuestions;
 }
 
 /***
@@ -191,7 +214,23 @@ export function renameQuestionById(
     targetId: number,
     newName: string
 ): Question[] {
-    return [];
+    /*
+    return questions.map(
+        (question: Question): Question =>
+            question.id === targetId
+                ? (question = { ...question, name: newName })
+                : (question = question)
+    );
+    */
+    const renameIfTarget = (question: Question): Question => {
+        if (question.id === targetId) {
+            return { ...question, name: newName };
+        }
+        return question;
+    };
+    return questions.map(
+        (question: Question): Question => renameIfTarget(question)
+    );
 }
 
 /***
@@ -206,7 +245,18 @@ export function changeQuestionTypeById(
     targetId: number,
     newQuestionType: QuestionType
 ): Question[] {
-    return [];
+    const changeTargetType = (question: Question): Question => {
+        if (question.id === targetId) {
+            if (newQuestionType !== "multiple_choice_question") {
+                return { ...question, type: newQuestionType, options: [] };
+            }
+            return { ...question, type: newQuestionType };
+        }
+        return question;
+    };
+    return questions.map(
+        (question: Question): Question => changeTargetType(question)
+    );
 }
 
 /**
